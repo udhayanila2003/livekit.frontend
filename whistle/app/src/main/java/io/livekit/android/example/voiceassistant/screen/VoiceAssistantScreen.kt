@@ -286,6 +286,45 @@ fun VoiceAssistant(
     }
 }
 
+@Composable
+fun ChatLog(room: Room, messages: List<ReceivedMessage>, modifier: Modifier) {
+    TODO("Not yet implemented")
+}
+
+@Composable
+fun ChatBar(
+    value: String,
+    onValueChange: () -> Unit,
+    onChatSend: (ERROR) -> Unit,
+    modifier: Modifier
+) {
+    TODO("Not yet implemented")
+}
+
+@Composable
+fun AgentVisualization(agent: Agent, modifier: Modifier) {
+    TODO("Not yet implemented")
+}
+
+@Composable
+fun ControlBar(
+    isMicEnabled: Boolean,
+    onMicClick: () -> Unit,
+    localAudioTrack: TrackReference?,
+    isCameraEnabled: Boolean,
+    onCameraClick: () -> Unit,
+    isScreenShareEnabled: Boolean,
+    onScreenShareClick: () -> Any,
+    isChatEnabled: Boolean,
+    onChatClick: () -> Unit,
+    onExitClick: () -> Unit,
+    modifier: Modifier
+) {
+    TODO("Not yet implemented")
+}
+
+annotation class VoiceAssistantViewModel
+
 
 private const val LAYOUT_ID_AGENT = "agentVisualizer"
 private const val LAYOUT_ID_CHAT_LOG = "chatLog"
