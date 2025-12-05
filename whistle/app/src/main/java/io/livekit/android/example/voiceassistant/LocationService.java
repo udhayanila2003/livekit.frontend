@@ -130,6 +130,9 @@ public class LocationService extends Service implements LocationListener {
 
     @Override
     public void onLocationChanged(Location location) {
+        // Update the repository
+        LocationRepository.INSTANCE.updateLocation(location);
+
         // This method is called whenever the device detects a new location
         String timestamp = new Date().toString();
         String latitude = String.format("%.4f", location.getLatitude());

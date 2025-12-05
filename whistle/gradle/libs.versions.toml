@@ -1,6 +1,6 @@
 [versions]
 accompanistPermissions = "0.37.3"
-agp = "8.13.0"
+agp = "8.13.1"
 constraintlayoutCompose = "1.1.1"
 kotlin = "2.2.20"
 coreKtx = "1.17.0"
@@ -15,6 +15,7 @@ materialIconsExtended = "1.7.8"
 okhttp = "5.2.1"
 timberkt = "1.5.1"
 navigationCompose = "2.9.5"
+kotlinxSerializationJson = "1.7.3"
 
 [libraries]
 accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanistPermissions" }
@@ -40,6 +41,7 @@ livekit-components = { group = "io.livekit", name = "livekit-android-compose-com
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
 timberkt = { module = "com.github.ajalt:timberkt", version.ref = "timberkt" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

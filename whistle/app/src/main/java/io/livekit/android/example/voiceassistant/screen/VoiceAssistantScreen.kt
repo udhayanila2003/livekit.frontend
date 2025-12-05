@@ -24,6 +24,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -54,6 +55,7 @@ import io.livekit.android.compose.state.rememberLocalMedia
 import io.livekit.android.compose.state.rememberSession
 import io.livekit.android.compose.state.rememberSessionMessages
 import io.livekit.android.compose.ui.VideoTrackView
+import io.livekit.android.example.voiceassistant.LocationRepository
 import io.livekit.android.example.voiceassistant.rememberCanEnableCamera
 import io.livekit.android.example.voiceassistant.rememberCanEnableMic
 import io.livekit.android.example.voiceassistant.requirePermissions
@@ -66,6 +68,9 @@ import io.livekit.android.room.track.screencapture.ScreenCaptureParams
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.buildJsonObject
+import kotlinx.serialization.json.put
 
 @Serializable
 data class VoiceAssistantRoute(
@@ -109,6 +114,7 @@ fun VoiceAssistant(
     )
 
     val context = LocalContext.current
+    val currentLocation by LocationRepository.location.collectAsState()
 
     SessionScope(session = session) { session ->
 
@@ -182,7 +188,19 @@ fun VoiceAssistant(
                 onValueChange = { message = it },
                 onChatSend = { msg ->
                     coroutineScope.launch {
-                        sessionMessages.send(msg)
+                        val location = currentLocation
+                        if (location != null) {
+                            val jsonObject = buildJsonObject {
+                                put("location", buildJsonObject {
+                                    put("latitude", JsonPrimitive(location.latitude))
+                                    put("longitude", JsonPrimitive(location.longitude))
+                                })
+                                put("message", JsonPrimitive(msg))
+                            }
+                            sessionMessages.send(jsonObject.toString())
+                        } else {
+                            sessionMessages.send(msg)
+                        }
                     }
                     message = ""
                 },
